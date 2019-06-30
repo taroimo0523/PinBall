@@ -18,6 +18,7 @@ public class FripperContoroller : MonoBehaviour {
 
         //フリッパーの傾きを設定
         SetAngle(this.defaultAngle);
+
     }
 
     // Update is called once per frame
@@ -43,6 +44,44 @@ public class FripperContoroller : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.RightArrow) && tag == "RightFripperTag")
         {
             SetAngle(this.defaultAngle);
+        }
+
+
+        //タッチされているかチェック
+        if (Input.touchCount > 0)
+        {
+            // タッチされている指の数だけ処理
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                // タッチ情報をコピー
+                Touch touch = Input.GetTouch(i);
+
+                //左側をタップした時左フリッパーを動かす
+                if (touch.position.x < Screen.width * 0.5f)
+                {
+                    if (touch.phase == TouchPhase.Began && tag == "LeftFripperTag")
+                    {
+                        SetAngle(this.flickAngle);
+                    }
+                }
+                //右側をタップした時右フリッパーを動かす
+                if (touch.position.x > Screen.width * 0.5f)
+                {
+                    if (touch.phase == TouchPhase.Began && tag == "RightFripperTag")
+                    {
+                        SetAngle(this.flickAngle);
+                    }
+                }
+                //指が離された時フリッパーを元に戻す
+                if (touch.phase == TouchPhase.Ended && tag == "LeftFripperTag")
+                {
+                    SetAngle(this.defaultAngle);
+                }
+                if (touch.phase == TouchPhase.Ended && tag == "RightFripperTag")
+                {
+                    SetAngle(this.defaultAngle);
+                }
+            }
         }
     }
         //フリッパーの傾きを設定
