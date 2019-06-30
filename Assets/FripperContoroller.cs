@@ -63,8 +63,18 @@ public class FripperContoroller : MonoBehaviour {
                     {
                         SetAngle(this.flickAngle);
                     }
+           　　 }
+                //左側をタップした状態で右側に移動するとフリッパーを下げる
+                if (touch.position.x > Screen.width * 0.5f)
+                {
+                    if (touch.phase == TouchPhase.Moved && tag == "LeftFripperTag")
+                    {
+                        SetAngle(this.defaultAngle);
+                    }
                 }
-                //右側をタップした時右フリッパーを動かす
+
+
+                    //右側をタップした時右フリッパーを動かす
                 if (touch.position.x > Screen.width * 0.5f)
                 {
                     if (touch.phase == TouchPhase.Began && tag == "RightFripperTag")
@@ -72,6 +82,15 @@ public class FripperContoroller : MonoBehaviour {
                         SetAngle(this.flickAngle);
                     }
                 }
+                //右側をタップした状態で左側に移動するとフリッパーを下げる
+                if (touch.position.x < Screen.width * 0.5f)
+                {
+                    if (touch.phase == TouchPhase.Moved && tag == "RightFripperTag")
+                    {
+                        SetAngle(this.defaultAngle);
+                    }
+                }
+
                 //指が離された時フリッパーを元に戻す
                 if (touch.phase == TouchPhase.Ended && tag == "LeftFripperTag")
                 {
